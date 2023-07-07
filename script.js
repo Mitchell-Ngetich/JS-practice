@@ -106,3 +106,32 @@ object1.buyPlane()
 // if i use bind without the object as parameter, it will give windows object
 // we must always add parameter to bind since it creates a new object
 document.querySelector(".buy").addEventListener("click", object1.buyPlane.bind(object1))
+
+function addTax(rate, value) {
+    return value + value * rate;
+}
+console.log(addTax(0.1, 200))
+const addVAT = addTax.bind(null, 0.23)
+console.log(addVAT(1000))
+console.log(addVAT(100))
+
+//function calling another function
+function greetings(){
+    return "Welcome home"
+}
+function returnFun(greet, name){
+    return `${greetings()}, ${greet} ${name}`;
+}
+
+console.log(returnFun("anyo", "kim tahyun"))
+
+function myFun(num){
+    return function(value){
+        return num / value;
+    }
+}
+//function returning a function
+const myFun2 = myFun(1250)
+console.log(myFun2(10))
+console.log(myFun2(18))
+console.log(myFun2(23))
