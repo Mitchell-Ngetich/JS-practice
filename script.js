@@ -73,74 +73,71 @@ BONUS TEST DATA 2: [1, 5, 3, 9, 6, 1]
 
 GOOD LUCK 😀
 */
-
+let count = 0;
 const poll = {
     question: "What is your favourite programming language?",
-    options: [
-         "JavaScript",
-         "Python",
-         "Rust",
-         "C++"
-    ],
-    answers: [],
+    options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+    answers: new Array(4).fill(0),
     registerNewAnswer(){
-        const myOptions = this.options;
-        const promptMessage = `${this.question}\n${myOptions.map((option, index) => `${index}: ${option}`).join('\n')}\n(Write option number)`;
-    // const answer = prompt(promptMessage);
+        const promptMessage = `${this.question}\n${this.options.join("\n")}\n(Write option number)`;
+     const answer = prompt(promptMessage);
+   
+     typeof answer === "number" && answer < this.answers.length && this.answers[answer]++;
+     console.log(this.answers)
     }
 }
-poll.registerNewAnswer()
+ poll.registerNewAnswer()
 
 // CLOSURES
-function secureBooking(){
-  let passengerCount = 0;
-  return function (){
-    passengerCount++;
-    console.log(`${passengerCount} total members`)
-  }
-}
- const book = secureBooking()
+// function secureBooking(){
+//   let passengerCount = 0;
+//   return function (){
+//     passengerCount++;
+//     console.log(`${passengerCount} total members`)
+//   }
+// }
+//  const book = secureBooking()
 //  the book now becomes a function
 // if you console.log, it will dispaly the content of the function
 // so instead you store them in a variable
- book()
- book()
- book()
- book()
- book()
+//  book()
+//  book()
+//  book()
+//  book()
+//  book()
 
- let f;
+//  let f;
 
- function g(){
-  const x = 12;
-   f = function (){
-    console.log(x * 3)
-   }
- }
-g();
-f() //> 36
+//  function g(){
+//   const x = 12;
+//    f = function (){
+//     console.log(x * 3)
+//    }
+//  }
+// g();
+// f() //> 36
 
-function y(){
-  const a = 356;
-  f = function (){
-    console.log(a * 2)/*if i put x instead of a, 
-    it will throw an error because it doesn't access x
-*/
-   }
-}
-y()
-f() //> 712
+// function y(){
+//   const a = 356;
+//   f = function (){
+//     console.log(a * 2)/*if i put x instead of a, 
+//     it will throw an error because it doesn't access x
+// */
+//    }
+// }
+// y()
+// f() //> 712
 
-function bordingPssenger(n, wait) {
-  const perGroup = n / 3;
-  setTimeout(function(){
-    console.log(`we will be boarding all the ${n} passengers`);
-    console.log(`There are 3 groups each with ${perGroup} members`)
-  }, wait * 0);
-  console.log(`Will start boarding in ${wait} seconds`)
-};
+// function bordingPssenger(n, wait) {
+//   const perGroup = n / 3;
+//   setTimeout(function(){
+//     console.log(`we will be boarding all the ${n} passengers`);
+//     console.log(`There are 3 groups each with ${perGroup} members`)
+//   }, wait * 0);
+//   console.log(`Will start boarding in ${wait} seconds`)
+// };
 
-bordingPssenger(360, 2)
+// bordingPssenger(360, 2)
 /*will start...message is executed first because of asynch JS, even if
 timeout is 0,It's important to note that even with a 0 delay, 
 the setTimeout callback function is still executed asynchronously, 
