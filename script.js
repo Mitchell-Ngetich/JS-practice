@@ -118,6 +118,8 @@ const inputLoanAmount = document.querySelector('.form__input--loan-amount');
 const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
 function displayMovements (movements){
    containerMovements.innerHTML = '';
 
@@ -134,9 +136,51 @@ function displayMovements (movements){
 }
 displayMovements(account1.movements);
 
-const firstName = "Steven Thomas Williams";
-const name1 = firstName.toLocaleLowerCase().split(" ").map(name => name[0]).join("")
-console.log(name1)
+function displayBalance(movements){
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance}€`
+}
+ displayBalance(account1.movements)
+
+function createUserNames(accs){
+  accs.forEach(function(acc){
+    acc.username= acc.owner.toLowerCase().split(" ").map(name => name[0]).join("")
+  })
+}
+createUserNames(accounts)
+console.log(accounts)
+
+
+
+
+
+// PRACTICALS
+
+const deposits = movements.filter(mov => mov > 0)
+console.log(movements)
+console.log(deposits)
+
+const withdrawals = movements.filter(mov => mov < 0)
+console.log(withdrawals);
+
+const globalBal = movements.reduce(function(acc, cur, i, arr){
+  return acc + cur;
+}, 0)
+console.log(globalBal)
+
+// USING REDUCE METHOD TO CALC MIN/MAX
+const max = movements.reduce(function(acc, cur){
+  if(acc > cur) return acc;
+  else return cur
+}, movements[0])
+console.log(max);
+
+const min = movements.reduce(function(acc, cur){
+  if(acc < cur) return acc
+  else return cur
+}, movements[0])
+console.log(min)
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
