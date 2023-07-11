@@ -34,14 +34,14 @@ const age2 =  [16, 6, 10, 5, 6, 1, 4]
 const ages = [...age1, ...age2]
 
  function calcAverageHumanAge(ages){
-  const humanAge = ages.map(function(age, i, arr){
+  const humanAge = ages.map(function(age){
     if(age <= 2){
       return age * 2
     } else {
       return  16 + age * 4
     }
   })
-  const over18 = humanAge.filter((age, i) => age > 18);
+  const over18 = humanAge.filter((age) => age > 18);
   const calAve = over18.reduce(function(acc, cur){
       return (acc + cur / over18.length)
   }, 0);
