@@ -42,13 +42,14 @@ const ages = [...age1, ...age2]
     }
   })
   const over18 = humanAge.filter((age) => age > 18);
-  const calAve = over18.reduce(function(acc, cur){
-      return (acc + cur / over18.length)
+  const calAve = over18.reduce(function(acc, age){
+      return (acc + age / over18.length)
   }, 0);
   console.log(calAve);
   
 }
 calcAverageHumanAge(ages)
+
 
 // Coding Challenge #1
 
@@ -188,13 +189,33 @@ function displayBalance(movements){
 }
  displayBalance(account1.movements)
 
+ function displaySummary(movements){
+  const income = movements.filter(mov => mov > 0).reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${income}€`;
+
+  const expense = movements.filter(mov => mov < 0).reduce((acc, mov) => acc + mov, 0)
+  labelSumOut.textContent = `${Math.abs(expense)}€`
+
+  const interest = movements.filter(mov => mov > 0)
+  .map(deposit => (deposit * 1.2) / 100)
+  .filter((int, i, arr) => {
+    // console.log(arr)
+    int >= 1})
+  
+  .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`
+  console.log(interest)
+ }
+ displaySummary(account1.movements)
+
+
+
 function createUserNames(accs){
   accs.forEach(function(acc){
     acc.username= acc.owner.toLowerCase().split(" ").map(name => name[0]).join("")
   })
 }
-createUserNames(accounts)
-console.log(accounts)
+createUserNames(accounts);
 
 
 
@@ -322,8 +343,12 @@ console.log(min)
 
 
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// 
 // const usdToKSH = 141;
+//CHAINING
+const euroToUSD = 1.1
+ const totalDeposits = movements.filter(mov => mov > 0).map(mov => mov * euroToUSD).reduce((acc, mov) => acc + mov, 0)
+ console.log(totalDeposits)
 
 // //MAP METHOD
 // const currency = movements.map((mov) => mov * usdToKSH);
