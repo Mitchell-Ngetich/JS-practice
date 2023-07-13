@@ -322,6 +322,14 @@ btnClose.addEventListener("click", function (e) {
     inputCloseUsername.value = inputClosePin.value = ""; // clear input values
   }
 })
+
+let sorted = false
+btnSort.addEventListener("click", function(e) {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted
+})
 // console.log("Home")
 
 // PRACTICALS
