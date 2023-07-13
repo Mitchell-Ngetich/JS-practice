@@ -191,10 +191,13 @@ const inputClosePin = document.querySelector('.form__input--pin');
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
-function displayMovements (movements){
+function displayMovements (movements, sort = false){
    containerMovements.innerHTML = '';
 
-  movements.forEach(function(mov, i){
+  /*if sort is true then sort the movs else diplay movs */
+   const movs = sort? movements.slice().sort((a, b) => a- b) : movements;
+
+  movs.forEach(function(mov, i){
     const type = mov > 0 ? "deposit" : "withdrawal"
     const html = `
     <div class="movements__row">
@@ -290,18 +293,33 @@ btnTransfer.addEventListener("click", function(e) {
   inputTransferTo.value = inputTransferAmount.value = "";
 })
 
+btnLoan.addEventListener("click", function(e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if(amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)){
+    //add to the movements loan granded
+    currentAccount.movements.push(amount);
+
+    //update the UI
+    updateUI(currentAccount);
+  }
+  inputLoanAmount.value = '';
+})
+
 btnClose.addEventListener("click", function (e) {
   e.preventDefault();
 
   if(inputCloseUsername.value === currentAccount.username && Number(inputClosePin.value) === currentAccount.pin){
     
     const index = accounts.findIndex(acc => acc.username === currentAccount.username);
+    console.log(index);
     //Delete the account
     accounts.splice(index, 1); 
     // Hide the UI
     containerApp.style.opacity = 0;
-    inputCloseUsername.value = inputClosePin.value = "";
-
+    inputCloseUsername.value = inputClosePin.value = ""; // clear input values
   }
 })
 // console.log("Home")
@@ -478,3 +496,41 @@ btnClose.addEventListener("click", function (e) {
 //   `Movement ${i + 1}: You ${movement > 0 ? "deposited" : "withdrew"} ${Math.abs(movement)}`
 // )
 // console.log(mapDescr);
+
+
+//console.log(movements)
+//checks equality
+// const any = movements.includes(-400);
+// console.log(any)
+
+//checks condition
+// const any1 = movements.some(mov => mov > 1000);
+// console.log(any1)
+
+// console.log(movements.every(mov => mov === "number"));
+
+//FLAT() METHOD; =>unbreaks the nested array and return an array
+
+// const arr = [[1,2], [3,4],[5, [6, 7]]];
+// console.log(arr.flat(2))
+
+// const movements1 = accounts.map((acc) => acc.movements).flat().reduce((acc, cur) => acc + cur, 0);
+// console.log(movements1)
+
+// FLATMAP METHOD => staright forward
+const movements2 = accounts.flatMap(acc => acc.movements).reduce((acc, mov) => acc + mov, 0);
+console.log(movements2)
+
+console.log(movements)
+
+//SORT METHOD(Mutates Array) => Ascending order
+
+const assOrder = movements.sort((a, b) => a - b);
+console.log(assOrder)
+
+// => descending order
+console.log(movements.sort((a, b) => b - a))
+
+console.log(movements)
+const slice = movements.slice()
+console.log(slice)
