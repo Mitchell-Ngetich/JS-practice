@@ -568,3 +568,16 @@ const {deposit, withdrawal} = accounts.flatMap(acc => acc.movements).reduce((sum
    return sums;
 }, {deposit: 0, withdrawal:0});
 console.log(deposit, withdrawal)
+
+function convertTitle (title){
+  const capitalizetitle = str => str[0].toUpperCase() + str.slice(1)
+  const exception = ["a", "an", "the", "and", "but", "or", "an", "in","with", "long"]
+  const titleCase = title.toLowerCase().split(" ").map(word => exception.includes(word) ? word : capitalizetitle(word)).join(" ")
+  return capitalizetitle(titleCase)
+}
+
+console.log(convertTitle("this is a nice title"));
+console.log(convertTitle("this is a LONG title but not too LONG"))
+console.log(convertTitle("and there is another title with an EXAMPLE"))
+console.log(convertTitle("THIS is my TRIAL to see if i understand arrays"))
+
