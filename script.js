@@ -81,7 +81,7 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // Functions
 
-function formatMovementDate(date){
+function formatMovementDate(date, locale){
   const calcDaysPassed = (date1, date2) =>
     Math.round(Math.abs(date1 - date2) / (1000 * 60 * 60 * 24));
 
@@ -92,10 +92,7 @@ function formatMovementDate(date){
     if(daysPassed === 1)  return "Yesterday"
     if(daysPassed <= 7) return `${daysPassed} days`
     else {
-      const day = `${date.getDate()}`.padStart(2, 0);
-      const month = `${date.getMonth() + 1}`.padStart(2, 0);
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
+      return new Intl.DateTimeFormat(locale).format(date)
     }
 }
 
@@ -111,7 +108,7 @@ const displayMovements = function (acc, sort = false) {
 
     const date = new Date(acc.movementsDates[i]);
    
-    const displayDate = formatMovementDate(date)
+    const displayDate = formatMovementDate(date, acc.locale)
 
     const html = `
       <div class="movements__row">
@@ -184,13 +181,19 @@ currentAccount = account1;
 updateUI(currentAccount);
 containerApp.style.opacity = 100;
 
-const now = new Date();
-const day = now.getDate();
-const month = `${now.getMonth() + 1}`.padStart(2, 0); //coz it is 0 based;
-const year = now.getFullYear();
-const hour = `${now.getHours()}`.padStart(2, 0);
-const minutes = `${now.getMinutes()}`.padStart(2, 0);
-labelDate.textContent = `${day}/ ${month}/ ${year}, ${hour}:${minutes}`;
+//Experimenting
+const now = new Date()
+const options = {
+  hour: "numeric",
+  minute: "numeric",
+  day: "numeric",
+  month: "numeric",
+  year: "numeric",
+  // weekday: "short"
+}
+
+labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(now)
+
 
 btnLogin.addEventListener('click', function (e) {
   // Prevent form from submitting
@@ -209,14 +212,26 @@ btnLogin.addEventListener('click', function (e) {
     containerApp.style.opacity = 100;
 
     //create current date and time
+    const now = new Date()
+    const options = {
+      hour: "numeric",
+      minute: "numeric",
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+      // weekday: "short"
+    }
+    
+    labelDate.textContent = new Intl.DateTimeFormat(currentAccount.locale, options).format(now)
 
-    const now = new Date();
-    const day = now.getDate();
-    const month = `${now.getMonth() + 1}`.padStart(2, 0); //coz it is 0 based;
-    const year = now.getFullYear();
-    const hour = now.getHours();
-    const minutes = now.getMinutes();
-    labelDate.textContent = `${day}/ ${month}/ ${year}, ${hour}:${minutes}`;
+
+    // const now = new Date();
+    // const day = now.getDate();
+    // const month = `${now.getMonth() + 1}`.padStart(2, 0); //coz it is 0 based;
+    // const year = now.getFullYear();
+    // const hour = now.getHours();
+    // const minutes = now.getMinutes();
+    // labelDate.textContent = `${day}/ ${month}/ ${year}, ${hour}:${minutes}`;
 
     // Clear input fields
     inputLoginUsername.value = inputLoginPin.value = '';
