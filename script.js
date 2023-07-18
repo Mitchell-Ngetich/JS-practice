@@ -182,6 +182,28 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+function startLogOutTimer(){
+  //set timer to desired time
+  let time = 120;
+
+  //call the timer every second
+   const timer = setInterval(function (){
+    const min = String(Math.trunc(time / 60)).padStart(2, 0)
+    const sec = String(time % 60).padStart(2, 0)
+    //in each call, print the remaining time to UI
+    labelTimer.textContent = `${min}: ${sec}`;
+
+    //decrease time by 1sec
+    time--;
+    // when 0 sec, stop timer and log out user
+    if(time === 0){
+      clearInterval(timer);
+      labelWelcome.textContent = "LOg in to get started";
+      containerApp.style.opacity = 0;
+    }
+  }, 1000)
+}
+
 ///////////////////////////////////////
 // Event handlers
 let currentAccount;
@@ -246,6 +268,8 @@ btnLogin.addEventListener('click', function (e) {
     inputLoginUsername.value = inputLoginPin.value = '';
     inputLoginPin.blur();
 
+    startLogOutTimer()
+
     // Update UI
     updateUI(currentAccount);
   }
@@ -285,6 +309,7 @@ btnLoan.addEventListener('click', function (e) {
 
   if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
     // Add movement
+    setTimeout(function(){
     currentAccount.movements.push(amount);
 
     //add loan date
@@ -292,6 +317,7 @@ btnLoan.addEventListener('click', function (e) {
 
     // Update UI
     updateUI(currentAccount);
+  }, 2500);
   }
   inputLoanAmount.value = '';
 });
@@ -369,21 +395,39 @@ btnSort.addEventListener('click', function (e) {
 // console.log(Date.now());
 // console.log(getFullYear(2023));
 
-const future = new Date(2037, 10, 19, 15, 23);
-console.log(+future);
+// const future = new Date(2037, 10, 19, 15, 23);
+// console.log(+future);
 
-function calcDaysPassed (date1, date2){
-  return Math.abs(date1 - date2) / (1000 * 60 * 60 * 24);
-  //change miliseconds to days
-}
- const results = calcDaysPassed(new Date(2037, 10, 12), new Date(2037, 10, 22));
- console.log(results)
+// function calcDaysPassed (date1, date2){
+//   return Math.abs(date1 - date2) / (1000 * 60 * 60 * 24);
+//   //change miliseconds to days
+// }
+//  const results = calcDaysPassed(new Date(2037, 10, 12), new Date(2037, 10, 22));
+//  console.log(results)
 
 
- const num = 364758956.23;
+//  const num = 364758956.23;
 
- console.log("US: ", new Intl.NumberFormat("en-US").format(num));
- console.log("GM: ", new Intl.NumberFormat("de-DE").format(num));
- console.log("ke: ", new Intl.NumberFormat("sw-KE").format(num));
- console.log(navigator.language, new Intl.NumberFormat(navigator.language).format(num))
+//  console.log("US: ", new Intl.NumberFormat("en-US").format(num));
+//  console.log("GM: ", new Intl.NumberFormat("de-DE").format(num));
+//  console.log("ke: ", new Intl.NumberFormat("sw-KE").format(num));
+//  console.log(navigator.language, new Intl.NumberFormat(navigator.language).format(num))
 
+
+const names = ["Olivia", "Purity"]
+const friendsTimer = setTimeout((name1, name2) => console.log(`I am waiting for you to load with ${name1} and ${name2}`), 2000, ...names);
+console.log("first loaded");
+
+if(names.includes("Olivia")) clearTimeout(friendsTimer)
+
+//setInterval
+setInterval(function(){
+  const moment = new Date();
+  const formatOptions = {
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric"
+  }
+  const formattedTime = new Intl.DateTimeFormat("sw-KE", formatOptions).format(moment);
+  console.log(formattedTime)
+}, 1000);
