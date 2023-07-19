@@ -94,3 +94,43 @@ document.addEventListener('keydown', function (e) {
 // logo.classList.remove("xy")
 // logo.classList.toggle("xy")
 // logo.classList.contains("xy")
+
+const btnScrollTo = document.querySelector(".btn--scroll-to");
+const section1 = document.querySelector("#section--1");
+
+btnScrollTo.addEventListener("click", function(e){
+  const s1coords = section1.getBoundingClientRect();
+  console.log(s1coords)
+
+  console.log(e.target.getBoundingClientRect())
+
+  console.log("Current scroll (X/Y)", window.pageXOffset, window.pageYOffset)
+
+  console.log("height/width", document.documentElement.clientHeight,
+  document.documentElement.clientWidth)
+
+  //scrolling
+  // window.scrollTo(s1coords.left + window.pageXOffset, s1coords.top + window.pageYOffset)
+  // /*so that when you sclick the button it scrolls to sec 1, we have to add window.pageOffset
+  // so that it can take us regardless of rec dimensions */
+
+  // //2nd method
+  // window.scrollTo({
+  //   left: s1coords.left + window.pageXOffset,
+  //   top: s1coords.top + window.pageYOffset,
+  //   behavior: "smooth"
+  // })
+
+  //modern ways
+  section1.scrollIntoView({behavior: "smooth"})
+
+});
+
+
+const h1 = document.querySelector("h1");
+const eventH1 = function(e){
+  alert("added event listener")
+}
+
+h1.addEventListener("mouseenter", eventH1 );
+setTimeOut(() => h1.removeEventListener("mouseenter", eventH1), 3000);
