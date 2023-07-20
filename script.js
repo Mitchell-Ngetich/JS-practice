@@ -141,6 +141,15 @@ Without using bind(), the this value inside the handleHoover function would have
  code intends. By using bind(), the code ensures that the function will be called with the correct 
  this value (the specified opacity) as intended for the hover effect. */
 
+ //sticky navigation
+ const initialCoords = section1.getBoundingClientRect();
+
+ window.addEventListener("scroll", function(){
+  if(window.scrollY > initialCoords.top) nav.classList.add("sticky");
+  else nav.classList.remove("sticky")
+ })
+
+
 /////////////
 //LERANING PURPOSES
 //selecting elements by tag name
