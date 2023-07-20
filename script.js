@@ -14,6 +14,7 @@ const tabs = document.querySelectorAll(".operations__tab");
 const tabsContainer = document.querySelector(".operations__tab-container");
 const tabsContent = document.querySelectorAll(".operations__content");
 const nav = document.querySelector(".nav")
+const header = document.querySelector(".header")
 
 
 //Modal window
@@ -142,28 +143,33 @@ Without using bind(), the this value inside the handleHoover function would have
  this value (the specified opacity) as intended for the hover effect. */
 
  //sticky navigation
- const initialCoords = section1.getBoundingClientRect();
+//  const initialCoords = section1.getBoundingClientRect();
 
- window.addEventListener("scroll", function(){
-  if(window.scrollY > initialCoords.top) nav.classList.add("sticky");
-  else nav.classList.remove("sticky")
- })
+//  window.addEventListener("scroll", function(){
+//   if(window.scrollY > initialCoords.top) nav.classList.add("sticky");
+//   else nav.classList.remove("sticky")
+//  })
 
  //Sticky navigation: INtersection observer API
 
- const obsCallBack = function (entries, observer){
-  entries.forEach(entry =>{
-    console.log(entry)
-  } )
+ const navHeight = nav.getBoundingClientRect().height;
+
+ function stickyNav(entries){
+  const [entry] = entries;
+  console.log(entry)
+
+  if(!entry.isIntersecting) nav.classList.add("sticky")
+  else nav.classList.remove("sticky")
  }
 
- const obOPtions = {
+ const headerObserver = new IntersectionObserver(stickyNav, {
   root: null,
-  threshold: 0.1
- };
+  threshold: 0,
+  rootMargin: `-${navHeight}px`
+ })
 
- const observer = new IntersectionObserver(obsCallBack, obOPtions);
- observer.observe(section1)
+ headerObserver.observe(header)
+ 
 /////////////
 //LERANING PURPOSES
 //selecting elements by tag name
