@@ -149,7 +149,21 @@ Without using bind(), the this value inside the handleHoover function would have
   else nav.classList.remove("sticky")
  })
 
+ //Sticky navigation: INtersection observer API
 
+ const obsCallBack = function (entries, observer){
+  entries.forEach(entry =>{
+    console.log(entry)
+  } )
+ }
+
+ const obOPtions = {
+  root: null,
+  threshold: 0.1
+ };
+
+ const observer = new IntersectionObserver(obsCallBack, obOPtions);
+ observer.observe(section1)
 /////////////
 //LERANING PURPOSES
 //selecting elements by tag name
