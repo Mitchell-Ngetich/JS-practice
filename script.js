@@ -156,7 +156,6 @@ Without using bind(), the this value inside the handleHoover function would have
 
  function stickyNav(entries){
   const [entry] = entries;
-  console.log(entry)
 
   if(!entry.isIntersecting) nav.classList.add("sticky")
   else nav.classList.remove("sticky")
@@ -168,8 +167,31 @@ Without using bind(), the this value inside the handleHoover function would have
   rootMargin: `-${navHeight}px`
  })
 
- headerObserver.observe(header)
+ headerObserver.observe(header);
+
+//  Reveal sections
+
+const allSections = document.querySelectorAll(".section")
+
+const revealSection= function(entries, observer){
+  const [entry] = entries;
+  console.log(entry)
+
+  if(!entry.isIntersecting) return;
+
+  entry.target.classList.remove("section--hidden")
+  observer.unobserve(entry.target)
+}
  
+const sectionObserver = new IntersectionObserver(revealSection, {
+  root: null,
+  threshold: 0.15
+})
+allSections.forEach(function(section) {
+  sectionObserver.observe(section);
+  section.classList.add("section--hidden")
+})
+
 /////////////
 //LERANING PURPOSES
 //selecting elements by tag name
