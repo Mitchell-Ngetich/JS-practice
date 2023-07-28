@@ -20,33 +20,35 @@ DATA CAR 2: 'Mercedes' going at 95 km/h
 GOOD LUCK 😀
 
 */
-const Car = function(make, speed){
-    this.make = make;
-    this.speed = speed
-}
-Car.prototype.accelerate = function(){
-   this.speed += 10;
-   console.log(`${this.make} ${this.speed}`)
-}
-Car.prototype.brake = function(){
-    this.speed -= 5;
-    console.log(`${this.make} ${this.speed}`)
+// const Car = function(make, speed){
+//     this.make = make;
+//     this.speed = speed
+// }
+// Car.prototype.accelerate = function(){
+//     //* we use this keyword to refer to the object that was calle on 
+//     //* in this case bmw.speed or merc.speed
+//    this.speed += 10;
+//    console.log(`${this.make} ${this.speed}`)
+// }
+// Car.prototype.brake = function(){
+//     this.speed -= 5;
+//     console.log(`${this.make} ${this.speed}`)
 
-}
+// }
 
-const bmw = new Car("BMW", 120)
-const merc = new Car("Mercedes", 95)
+// const bmw = new Car("BMW", 120)
+// const merc = new Car("Mercedes", 95)
 
-merc.accelerate();
-merc.accelerate();
-merc.accelerate();
-merc.brake()
-merc.brake()
-merc.brake()
-bmw.accelerate()
-merc.accelerate();
+// merc.accelerate();
+// merc.accelerate();
+// merc.accelerate();
+// merc.brake()
+// merc.brake()
+// merc.brake()
+// bmw.accelerate()
+// merc.accelerate();
 
-bmw.brake()
+// bmw.brake()
 
 
 // function Person(firstName, birthYear){
@@ -79,3 +81,30 @@ bmw.brake()
 
 // console.log(arr.unique())
 
+//Classes in EX6
+
+class Person{
+    constructor(firstName, birthYear){
+        this.firstName = firstName;
+        this.birthYear = birthYear
+    }
+    calcAge(){
+        console.log(2023 - this.birthYear)
+    }
+    hobby(){
+        console.log("Watching")
+    }
+}
+
+const mitch = new Person("Mitchell", 1997);
+const joy = new Person("Joy", 2015)
+console.log(joy)
+joy.hobby()
+console.log(mitch)
+mitch.calcAge()
+mitch.hobby()
+console.log(mitch.__proto__ === Person.prototype)
+/*this returns true because the mitch object inherits
+ *its properties and methods from the Person.prototype object.
+ *Since mitch.__proto__ and Person.prototype both point to the same object, 
+ *the expression mitch.__proto__ === Person.prototype evaluates to true. */
