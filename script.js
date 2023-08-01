@@ -88,6 +88,8 @@ class Person{
         this.fullName = fullName;
         this.birthYear = birthYear
     }
+
+    //inherited by the instances
     calcAge(){
         console.log(2023 - this.birthYear)
     }
@@ -107,7 +109,17 @@ class Person{
     get  fullName(){
         return this._fullName
     }
+
+    //static methods(cannot be inherited by the instances)
+    static hey(){
+        console.log("Hey there ✋")
+    }
 }
+
+Person.hey();
+const pepe = new Person("Nehema Jerube", 2014);
+// pepe.hey()//will throw an error coz its a static method
+
 
 const mitch = new Person("Mitchell Ngetich", 1997);
 console.log(mitch._name)
