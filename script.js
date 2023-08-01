@@ -84,27 +84,62 @@ GOOD LUCK 😀
 //Classes in EX6
 
 class Person{
-    constructor(firstName, birthYear){
-        this.firstName = firstName;
+    constructor(fullName, birthYear){
+        this.fullName = fullName;
         this.birthYear = birthYear
     }
     calcAge(){
         console.log(2023 - this.birthYear)
     }
     hobby(){
-        console.log("Watching")
+        console.log(`${this.fullName} loves watching`)
+    }
+    get age(){
+        return 2023 - this.birthYear
+    }
+
+    //set a property that already exists.
+    set fullName(name){
+        console.log(name)
+        if (name.includes(" ")) this._fullname = name;
+        else alert(`${name} is not a full name`)
+    }
+    get  fullName(){
+        return this._fullName
     }
 }
 
-const mitch = new Person("Mitchell", 1997);
-const joy = new Person("Joy", 2015)
+const mitch = new Person("Mitchell Ngetich", 1997);
+console.log(mitch._name)
+
+const joy = new Person("Joy Chumba", 2015)
 console.log(joy)
-joy.hobby()
-console.log(mitch)
-mitch.calcAge()
-mitch.hobby()
-console.log(mitch.__proto__ === Person.prototype)
+// const mitch = new Person("Mitchell", 1997);
+// const joy = new Person("Joy", 2015)
+// console.log(joy)
+// joy.hobby()
+// console.log(mitch)
+// mitch.calcAge()
+// mitch.hobby()
+// console.log(mitch.__proto__ === Person.prototype)
 /*this returns true because the mitch object inherits
  *its properties and methods from the Person.prototype object.
  *Since mitch.__proto__ and Person.prototype both point to the same object, 
  *the expression mitch.__proto__ === Person.prototype evaluates to true. */
+
+ //1. Classes cannot be hoisted
+ //2. Classes are executed in strict mode
+ //3.Classes are first class citizens
+
+ //Setters and Getters
+ const account = {
+    owner: "Mitch",
+    movements: [200, 530, 120, 300],
+
+    get latest(){
+        return this.movements.slice(-1).pop()
+    }
+ }
+
+ console.log(account.latest)
+ console.log(account.movements)
