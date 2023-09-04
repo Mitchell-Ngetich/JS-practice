@@ -1,8 +1,67 @@
 'use strict';
 
 ///////////////////////////////////////
+// Coding Challenge #3
+
+/* 
+1. Use a constructor function to implement an Electric Car
+ (called EV) as a CHILD "class" of Car. Besides a make and
+  current speed, the EV also has the current battery charge
+   in % ('charge' property);
+2. Implement a 'chargeBattery' method which takes an argument
+ 'chargeTo' and sets the battery charge to 'chargeTo';
+3. Implement an 'accelerate' method that will increase the
+ car's speed by 20, and decrease the charge by 1%. Then log 
+ a message like this: 'Tesla going at 140 km/h, with a charge of 22%';
+4. Create an electric car object and experiment with calling 
+'accelerate', 'brake' and 'chargeBattery' (charge to 90%). 
+Notice what happens when you 'accelerate'! HINT: Review the 
+definiton of polymorphism 😉
+
+DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+
+//constructor function we use const = xyz
+const Car = function(speed, make) { 
+   this.speed = speed;
+   this.make = make;
+}
+
+Car.prototype.accelerate = function(){
+   this.speed += 20
+   console.log(`${this.make} going at ${this.speed} km/h`)
+}
+Car.prototype.brake = function(){
+   this.speed -= 5;
+   console.log(`${this.make} going at ${this.speed} km/h`)
+}
+
+const EV = function(speed, make, charge){
+   Car.call(this, speed, make);
+      this.charge = charge;
+}
+
+EV.prototype = Object.create(Car.prototype);
+
+EV.prototype.chargeBattery = function(chargeTo){
+   this.charge  = chargeTo;
+ }
+
+ EV.prototype.accelerate = function(){
+   this.speed += 20;
+   this.charge -= 1 // or this.charge --;
+   console.log(`${this.make} going at ${this.speed} km/h with a charge of ${this.charge}`)
+ }
 
 
+const tesla = new EV(120, "Tesla", 23)
+tesla.chargeBattery(90)
+console.log(tesla);
+tesla.accelerate()
+tesla.brake()
+tesla.chargeBattery()
 // Coding Challenge #2
 
 /* 
@@ -246,19 +305,31 @@ GOOD LUCK 😀
 // console.log(sara)
 // sara.calcAge()
 
-const Person = function(firstName, birthYear){
-    this.firstName = firstName;
-    this.birthYear = birthYear
-};
 
-Person.prototype.calcAge = function(){
-    console.log(2023 - this.birthYear)
-}
+// Using constructor functions
+// const Person = function(firstName, birthYear){
+//     this.firstName = firstName;
+//     this.birthYear = birthYear
+// };
 
-const student = function(firstName, birthYear, course){
-    this.firstName = firstName;
-    this.birthYear = birthYear;
-    this.course = course;
-}
-const mike = new Student("Mike", 2020, "Computer Science")
-console.log(mike)
+// Person.prototype.calcAge = function(){
+//     console.log(2023 - this.birthYear)
+// }
+
+// const Student = function(firstName, birthYear, course){
+//     Person.call(this, firstName, birthYear)
+//     this.course = course;
+// }
+
+// //linking student instance to person so that they can inherit person properties.
+// Student.prototype = Object.create(Person.prototype);
+
+// Student.prototype.introduction = function(){
+//     console.log(`My name is ${this.firstName} and I am doing ${this.course}`)
+// }
+// const mike = new Student("Mike", 2020, "Computer Science")
+// mike.introduction()
+// const mitch = new Student("Mitch", 2001, "Computer Science")
+// mitch.introduction()
+// console.log(mitch)
+// mitch.calcAge(); //won't work unless i extend to inherit from person object.
