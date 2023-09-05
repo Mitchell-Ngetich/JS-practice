@@ -339,48 +339,89 @@ GOOD LUCK 😀
 
 // Classes in EX6
 
-class Person{
-    constructor(fullName, birthYear){
-        this.fullName = fullName;
-        this.birthYear = birthYear
-    }
+// class Person{
+//     constructor(fullName, birthYear){
+//         this.fullName = fullName;
+//         this.birthYear = birthYear
+//     }
 
-    //inherited by the instances
-    calcAge(){
-        console.log(2023 - this.birthYear)
-    }
-    hobby(){
-        console.log(`${this.fullName} loves watching`)
-    }
-    get age(){
-        return 2023 - this.birthYear
-    }
+//     //inherited by the instances
+//     calcAge(){
+//         console.log(2023 - this.birthYear)
+//     }
+//     hobby(){
+//         console.log(`${this.fullName} loves watching`)
+//     }
+//     get age(){
+//         return 2023 - this.birthYear
+//     }
 
-    //set a property that already exists.
-    set fullName(name){
-        if (name.includes(" ")) this._fullname = name;
-        else alert(`${name} is not a full name`)
-    }
-    get  fullName(){
-        return this._fullName
-    }
+//     //set a property that already exists.
+//     get  fullName(){
+//         return this._fullName
+//     }
+
+//     set fullName(name){
+//         if (name.includes(" ")) this._fullName = name;
+//         else alert(`${name} is not a full name`)
+//     }
+   
 
 
-    //static methods(cannot be inherited by the instances)
-    static hey(){
-        console.log("Hey there ✋")
-    } //cannot be inherited by the instances.
-}
+//     //static methods(cannot be inherited by the instances)
+//     static hey(){
+//         console.log("Hey there ✋")
+//     } //cannot be inherited by the instances.
+// }
 
-class Student extends Person {
-    constructor(fullName, birthYear, course, studentId){
-    super(fullName, birthYear);
-    this.course = course;
-    this.studentId = studentId;
-    }
-}
+// class Student extends Person {
+//     constructor(fullName, birthYear, course, studentId){
+//     super(fullName, birthYear);
+//     this.course = course;
+//     this.studentId = studentId;
+//     }
 
-const mercy = new Student("Mercy Kibet", 2001, "engineering", 1226);
-console.log(mercy.age)
-mercy.birthYear = 2012;  //setter is called and sets the birthYear to 2010
-console.log(mercy.age)
+
+// introduce(){
+//     console.log(`my name is ${this.fullName} and i'm doing ${this.course}. my age is ${2023 - this.birthYear}`)
+// }
+// }
+
+// const mercy = new Student("Mercy Kibet", 2001, "engineering", 1226);
+// console.log(mercy.age)
+// console.log(mercy.fullName)
+// mercy.birthYear = 2012;  //setter is called and sets the birthYear to 2010
+// console.log(mercy.age)
+// mercy.introduce()
+
+//using object.create
+// const Person = {
+//     calcAge(){
+//         console.log(2023 - this.birthYear);
+//     },
+
+//     init(firstName, birthYear){
+//       this.firstName = firstName;
+//       this.birthYear = birthYear;
+//     }
+// }
+// // const steven = Object.create(Person);
+
+// const Student = Object.create(Person);
+// Student.init = function(firstName, birthYear, course){
+//     Person.init.call(this, firstName, birthYear)
+//     this.course = course;
+// }
+
+// Student.introduce = function (){
+//     console.log(`my name is ${this.firstName} and i'm pursuing ${this.course}`)
+// }
+
+// const jay = Object.create(Student);
+
+// jay.init("Jay", 2012, "Maritime")
+// console.log(jay)
+// jay.introduce()
+// // jay.calcAge()
+// console.log(jay.birthYear)
+// jay.calcAge()
