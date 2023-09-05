@@ -457,16 +457,18 @@ class Account {
 
    deposit(value){
       this.#movements.push(value);
+      return this;
    }
 
    withdraw(value){
       this.deposit(-value);
+      return this;
    }
  
    requestLoan(value){
       if(this.#approvedLoan(value)){
          this.deposit(value);
-         console.log("Approved")
+         return this;
       }
    }
 
@@ -493,3 +495,10 @@ acc1.withdraw(140)
 console.log(acc1.callApprovedLoan())
 // console.log(acc1.#pin) => also gives an error
 // console.log(acc1.#movements)// gives an error coz its a private field
+
+//chaining Methods
+acc1.deposit(2000).deposit(140).withdraw(140).requestLoan(2000).withdraw(2200)
+
+// we should return this in deposit, withdraw and requestLoan so that
+//it doesn't return undefined
+console.log(acc1.getMovements())
