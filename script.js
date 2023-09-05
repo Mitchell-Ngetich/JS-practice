@@ -62,6 +62,8 @@ console.log(tesla);
 tesla.accelerate()
 tesla.brake()
 tesla.chargeBattery()
+
+
 // Coding Challenge #2
 
 /* 
@@ -333,3 +335,52 @@ GOOD LUCK 😀
 // mitch.introduction()
 // console.log(mitch)
 // mitch.calcAge(); //won't work unless i extend to inherit from person object.
+
+
+// Classes in EX6
+
+class Person{
+    constructor(fullName, birthYear){
+        this.fullName = fullName;
+        this.birthYear = birthYear
+    }
+
+    //inherited by the instances
+    calcAge(){
+        console.log(2023 - this.birthYear)
+    }
+    hobby(){
+        console.log(`${this.fullName} loves watching`)
+    }
+    get age(){
+        return 2023 - this.birthYear
+    }
+
+    //set a property that already exists.
+    set fullName(name){
+        if (name.includes(" ")) this._fullname = name;
+        else alert(`${name} is not a full name`)
+    }
+    get  fullName(){
+        return this._fullName
+    }
+
+
+    //static methods(cannot be inherited by the instances)
+    static hey(){
+        console.log("Hey there ✋")
+    } //cannot be inherited by the instances.
+}
+
+class Student extends Person {
+    constructor(fullName, birthYear, course, studentId){
+    super(fullName, birthYear);
+    this.course = course;
+    this.studentId = studentId;
+    }
+}
+
+const mercy = new Student("Mercy Kibet", 2001, "engineering", 1226);
+console.log(mercy.age)
+mercy.birthYear = 2012;  //setter is called and sets the birthYear to 2010
+console.log(mercy.age)
