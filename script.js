@@ -24,44 +24,44 @@ GOOD LUCK 😀
 */
 
 //constructor function we use const = xyz
-const Car = function(speed, make) { 
-   this.speed = speed;
-   this.make = make;
-}
+// const Car = function(speed, make) { 
+//    this.speed = speed;
+//    this.make = make;
+// }
 
-Car.prototype.accelerate = function(){
-   this.speed += 20
-   console.log(`${this.make} going at ${this.speed} km/h`)
-}
-Car.prototype.brake = function(){
-   this.speed -= 5;
-   console.log(`${this.make} going at ${this.speed} km/h`)
-}
+// Car.prototype.accelerate = function(){
+//    this.speed += 20
+//    console.log(`${this.make} going at ${this.speed} km/h`)
+// }
+// Car.prototype.brake = function(){
+//    this.speed -= 5;
+//    console.log(`${this.make} going at ${this.speed} km/h`)
+// }
 
-const EV = function(speed, make, charge){
-   Car.call(this, speed, make);
-      this.charge = charge;
-}
+// const EV = function(speed, make, charge){
+//    Car.call(this, speed, make);
+//       this.charge = charge;
+// }
 
-EV.prototype = Object.create(Car.prototype);
+// EV.prototype = Object.create(Car.prototype);
 
-EV.prototype.chargeBattery = function(chargeTo){
-   this.charge  = chargeTo;
- }
+// EV.prototype.chargeBattery = function(chargeTo){
+//    this.charge  = chargeTo;
+//  }
 
- EV.prototype.accelerate = function(){
-   this.speed += 20;
-   this.charge -= 1 // or this.charge --;
-   console.log(`${this.make} going at ${this.speed} km/h with a charge of ${this.charge}`)
- }
+//  EV.prototype.accelerate = function(){
+//    this.speed += 20;
+//    this.charge -= 1 // or this.charge --;
+//    console.log(`${this.make} going at ${this.speed} km/h with a charge of ${this.charge}`)
+//  }
 
 
-const tesla = new EV(120, "Tesla", 23)
-tesla.chargeBattery(90)
-console.log(tesla);
-tesla.accelerate()
-tesla.brake()
-tesla.chargeBattery()
+// const tesla = new EV(120, "Tesla", 23)
+// tesla.chargeBattery(90)
+// console.log(tesla);
+// tesla.accelerate()
+// tesla.brake()
+// tesla.chargeBattery()
 
 
 // Coding Challenge #2
@@ -425,3 +425,71 @@ GOOD LUCK 😀
 // // jay.calcAge()
 // console.log(jay.birthYear)
 // jay.calcAge()
+
+
+
+
+class Account {
+   // 1) Public fields(available in all instances)
+   locale = navigator.language;
+
+   // 2) Private fields(uses # cannot be accessed outside class)(instances)
+   #movements = [];
+   #pin;
+
+   constructor(owner, currency, pin){
+      this.owner = owner;
+      this.currency = currency;
+      //protected fields - should not be accessed  from outside(encapsulation)
+      this.#pin = pin;
+      // this._movements = [];
+      // this.locale = navigator.language;
+
+      console.log(`Thank you for opening an account ${this.owner}`)
+   }
+
+   //public interface
+   // 3) public methods
+
+   getMovements(){
+      return this.#movements;
+   }
+
+   deposit(value){
+      this.#movements.push(value);
+   }
+
+   withdraw(value){
+      this.deposit(-value);
+   }
+ 
+   requestLoan(value){
+      if(this.#approvedLoan(value)){
+         this.deposit(value);
+         console.log("Approved")
+      }
+   }
+
+   // 4) private methods
+   #approvedLoan(value){
+      return true
+      // for private methods we call them on public methods so that we can access them ouside class
+
+   }
+
+   callApprovedLoan(){
+     return this.#approvedLoan() 
+     // should have a return statement. 
+   
+   }
+  
+
+}
+
+const acc1 = new Account("Jonas", "EUR", 1111)
+console.log(acc1)
+acc1.deposit(200)
+acc1.withdraw(140)
+console.log(acc1.callApprovedLoan())
+// console.log(acc1.#pin) => also gives an error
+// console.log(acc1.#movements)// gives an error coz its a private field
