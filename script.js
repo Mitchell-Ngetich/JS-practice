@@ -429,76 +429,137 @@ GOOD LUCK 😀
 
 
 
-class Account {
-   // 1) Public fields(available in all instances)
-   locale = navigator.language;
+// class Account {
+//    // 1) Public fields(available in all instances)
+//    locale = navigator.language;
 
-   // 2) Private fields(uses # cannot be accessed outside class)(instances)
-   #movements = [];
-   #pin;
+//    // 2) Private fields(uses # cannot be accessed outside class)(instances)
+//    #movements = [];
+//    #pin;
 
-   constructor(owner, currency, pin){
-      this.owner = owner;
-      this.currency = currency;
-      //protected fields - should not be accessed  from outside(encapsulation)
-      this.#pin = pin;
-      // this._movements = [];
-      // this.locale = navigator.language;
+//    constructor(owner, currency, pin){
+//       this.owner = owner;
+//       this.currency = currency;
+//       //protected fields - should not be accessed  from outside(encapsulation)
+//       this.#pin = pin;
+//       // this._movements = [];
+//       // this.locale = navigator.language;
 
-      console.log(`Thank you for opening an account ${this.owner}`)
-   }
+//       console.log(`Thank you for opening an account ${this.owner}`)
+//    }
 
-   //public interface
-   // 3) public methods
+//    //public interface
+//    // 3) public methods
 
-   getMovements(){
-      return this.#movements;
-   }
+//    getMovements(){
+//       return this.#movements;
+//    }
 
-   deposit(value){
-      this.#movements.push(value);
-      return this;
-   }
+//    deposit(value){
+//       this.#movements.push(value);
+//       return this;
+//    }
 
-   withdraw(value){
-      this.deposit(-value);
-      return this;
-   }
+//    withdraw(value){
+//       this.deposit(-value);
+//       return this;
+//    }
  
-   requestLoan(value){
-      if(this.#approvedLoan(value)){
-         this.deposit(value);
-         return this;
-      }
-   }
+//    requestLoan(value){
+//       if(this.#approvedLoan(value)){
+//          this.deposit(value);
+//          return this;
+//       }
+//    }
 
-   // 4) private methods
-   #approvedLoan(value){
-      return true
-      // for private methods we call them on public methods so that we can access them ouside class
+//    // 4) private methods
+//    #approvedLoan(value){
+//       return true
+//       // for private methods we call them on public methods so that we can access them ouside class
 
-   }
+//    }
 
-   callApprovedLoan(){
-     return this.#approvedLoan() 
-     // should have a return statement. 
+//    callApprovedLoan(){
+//      return this.#approvedLoan() 
+//      // should have a return statement. 
    
-   }
+//    }
   
 
+// }
+
+// const acc1 = new Account("Jonas", "EUR", 1111)
+// console.log(acc1)
+// acc1.deposit(200)
+// acc1.withdraw(140)
+// console.log(acc1.callApprovedLoan())
+// // console.log(acc1.#pin) => also gives an error
+// // console.log(acc1.#movements)// gives an error coz its a private field
+
+// //chaining Methods
+// acc1.deposit(2000).deposit(140).withdraw(140).requestLoan(2000).withdraw(2200)
+
+// // we should return this in deposit, withdraw and requestLoan so that
+// //it doesn't return undefined
+// console.log(acc1.getMovements())
+
+// Coding Challenge #4
+
+/* 
+1. Re-create challenge #3, but this time using ES6 classes: 
+create an 'EVCl' child class of the 'CarCl' class
+2. Make the 'charge' property private;
+3. Implement the ability to chain the 'accelerate' and 
+'chargeBattery' methods of this class, and also update the 
+'brake' method in the 'CarCl' class. They experiment with chining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😀
+*/
+
+class Car{
+   constructor(speed, make){
+   this.speed = speed;
+   this.make = make;
+   }
+
+   accelerate(){
+         this.speed += 20
+         console.log(`${this.make} going at ${this.speed} km/h`)
+         return this;
+      }
+      
+      brake(){
+         this.speed -= 5;
+         console.log(`${this.make} going at ${this.speed} km/h`)
+         return this;
+      }
 }
 
-const acc1 = new Account("Jonas", "EUR", 1111)
-console.log(acc1)
-acc1.deposit(200)
-acc1.withdraw(140)
-console.log(acc1.callApprovedLoan())
-// console.log(acc1.#pin) => also gives an error
-// console.log(acc1.#movements)// gives an error coz its a private field
+   class EV extends Car{
+      #charge; // private property
+      constructor(speed, make, charge){
+      super(speed, make);
+      this.#charge = charge;
+   }
 
-//chaining Methods
-acc1.deposit(2000).deposit(140).withdraw(140).requestLoan(2000).withdraw(2200)
+   accelerate(){
+      this.speed += 20;
+      this.charge --;
+      console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.#charge}`)
+      return this;
+   }
 
-// we should return this in deposit, withdraw and requestLoan so that
-//it doesn't return undefined
-console.log(acc1.getMovements())
+   chargeBattery(chargeTo){
+      this.#charge = chargeTo
+      return this;
+   }
+}
+
+const car1 = new EV( 120, "Rivian", 23)
+car1.chargeBattery(90)
+console.log(car1)
+car1.brake()
+
+car1.accelerate().chargeBattery(20).brake().accelerate();
