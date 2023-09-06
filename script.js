@@ -563,3 +563,23 @@ console.log(car1)
 car1.brake()
 
 car1.accelerate().chargeBattery(20).brake().accelerate();
+
+//chatGPT OOP question
+
+class Book {
+   #title;
+   #author;
+   #publicationYear;
+   constructor(title, author, publicationYear){
+      this.#title = title;
+      this.#author = author;
+      this.#publicationYear = publicationYear;
+   }
+
+   getBookInfo(){
+      return `Title: ${this.#title}, Author: ${this.#author}, Year: ${this.#publicationYear}`
+   }
+}
+
+const book1 = new Book("The Catcher in the Rye", "J.D", 1951);
+console.log(book1.getBookInfo());
