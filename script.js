@@ -25,7 +25,7 @@ if (navigator.geolocation)
       const map = L.map('map').setView(coords, 13);
 
       L.tileLayer('https://tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        attribution:
+        attribution: //styles your map
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
       }).addTo(map);
 
@@ -36,13 +36,13 @@ if (navigator.geolocation)
         L.marker([lat, lng])
           .addTo(map)
           .bindPopup(L.popup({
-            maxWidth: 250,
+            maxWidth: 250, //popup's width
             minWidth: 100,
-            autoClose: false,
-            closeOnClick: false,
-            className:"running-popup"
+            autoClose: false, //keep the popup open
+            closeOnClick: false, //keep it open even when you click on the map
+            className:"running-popup" //adds class for styling
           }))
-          .setPopupContent("workout")
+          .setPopupContent("workout") // what is displayed
           .openPopup();
       });
     },
