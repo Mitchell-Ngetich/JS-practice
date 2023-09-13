@@ -31,39 +31,36 @@ const countriesContainer = document.querySelector('.countries');
 //   countriesContainer.style.opacity = 1;
 // });
 
-
-
 const renderCountry = function (data, className = '') {
   const html = `
-    <article class="country">
-      <img class="country__img" src="${data.flag}" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name}</h3>
-        <h4 class="country__region">${data.region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          +data.population / 1000000
-        ).toFixed(1)} million people</p>
-        <p class="country__row"><span>🗣️</span>${data.languages[0].name}</p>
-        <p class="country__row"><span>💰</span>${data.currencies[0].name}}</p>
-       </div>
-    </article>`;
+  <article class="country ${className}">
+         <img class="country__img" src="${data.flags.svg}" />
+         <div class="country__data">
+           <h3 class="country__name">${data.name.common}</h3>
+           <h4 class="country__region">${data.region}</h4>
+          <p class="country__row"><span>👫</span>${(
+            +data.population / 1000000
+          ).toFixed(1)} million people</p>
+          <p class="country__row"><span>🗣️</span>${data.languages}</p>
+          <p class="country__row"><span>💰</span>${data.currencies[0]}</p>
+         </div>
+  </article>`;
+  console.log(data.languages)
   countriesContainer.insertAdjacentHTML('beforeend', html);
   countriesContainer.style.opacity = 1;
 };
 
-function getResponse(country) {
-  return (
+function getResponse(country) { 
     fetch(`https://restcountries.com/v3.1/name/${country}`)
       //returns a promise
       .then(function (response) {
         return response.json(); // returns a promise
       })
       .then(function (data) {
-        console.log(data);
-        return data; // converts the promise to data
+         console.log(data[0])// converts the promise to data
         renderCountry(data[0]);
-      })
-  );
+        return data;
+      });
 }
 
-getResponse('portugal');
+getResponse('madagascar');
