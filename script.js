@@ -31,6 +31,7 @@ const countriesContainer = document.querySelector('.countries');
 //   countriesContainer.style.opacity = 1;
 // });
 
+let nameCur;
 const renderCountry = function (data, className = '') {
   const html = `
   <article class="country ${className}">
@@ -42,7 +43,7 @@ const renderCountry = function (data, className = '') {
             +data.population / 1000000
           ).toFixed(1)} million people</p>
           <p class="country__row"><span>🗣️</span>${data.languages}</p>
-          <p class="country__row"><span>💰</span>${data.currencies[0]}</p>
+          <p class="country__row"><span>💰</span>${nameCur}</p>
          </div>
   </article>`;
   console.log(data.languages)
@@ -57,10 +58,16 @@ function getResponse(country) {
         return response.json(); // returns a promise
       })
       .then(function (data) {
-         console.log(data[0])// converts the promise to data
+         nameCur = data[0].currencies
+        for(let item in data[0].currencies){
+          <p class="country__row"> <span>💰</span>${data[0].currencies[item].name}</p>
+
+          // console.log(name[item].name)
+        }
+        // converts the promise to data
         renderCountry(data[0]);
         return data;
       });
 }
 
-getResponse('madagascar');
+getResponse('portugal');
