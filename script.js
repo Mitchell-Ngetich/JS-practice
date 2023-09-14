@@ -104,6 +104,19 @@ function getResponse(country) {
       })
       .then(response => response.json())
       .then(data => renderCountry(data[0], "neighbour"))
+
+      /*explanation on why in renderCountry we used data and getResponse
+      we used data[0] =========
+      In the getResponse function, you fetch data from the REST Countries
+     API and parse it with response.json(). This API endpoint typically 
+     returns an array of country data, even if there's only one match. So, 
+     when you do data[0], you are accessing the first (and possibly only) 
+     element of that array, resulting in an object structure.
+
+     In the renderCountry function, you are passing data directly, and 
+     it's assumed that it's already an object containing country information,
+      not an array. Therefore, you see the object structure directly.
+      */
       
      
  }
