@@ -5,6 +5,7 @@ const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
 // Promises and the Fetch API
+// Old way of getting data from an API
 
 // const request = new XMLHttpRequest();
 // request.open('GET', 'https://restcountries.com/v3.1/name/kenya');
@@ -35,6 +36,7 @@ const countriesContainer = document.querySelector('.countries');
 const renderCountry = function (data, className = '') {
   let currencyName, languages = [], flag, countryName;
 
+  // you can also use optional chaining
   for(const item in data.name){
      countryName = data.name.common
      console.log(countryName)
@@ -60,7 +62,7 @@ const renderCountry = function (data, className = '') {
           <p class="country__row"><span>👫</span>${(
             +data.population / 1000000
           ).toFixed(1)} million people</p>
-          <p class="country__row"><span>🗣️</span>${languages}</p>
+          <p class="country__row"><span>🗣️</span>${languages[0]}</p>
           <p class="country__row"><span>💰</span>${currencyName}</p>
          </div>
   </article>`;
@@ -78,17 +80,32 @@ function getResponse(country) {
       .then(function (data) {
         // converts the promise to data
         renderCountry(data[0]);
-
+        
+         //render neightbour 
         const neighbour = data[0].borders[0];
-        console.log(neighbour);
+        console.log(data[0])
+         if(!neighbour) return;
+
+      //   fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
+      //   .then(function (response) {
+      //     return response.json(); // returns a promise
+      //   })
+      //   .then(function (data) {
+      //     // converts the promise to data
+      //     renderCountry(data[0], "neighbour");
+      //   })
+      // });
 
         if(!neighbour) return;
 
         // country 2
-         return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+        console.log(neighbour);
+         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`)
       })
       .then(response => response.json())
-      .then(data => renderCountry(data, "neighbour"))
+      .then(data => renderCountry(data[0], "neighbour"))
+      
+     
  }
 
-getResponse('egypt');
+getResponse('zimbabwe');
